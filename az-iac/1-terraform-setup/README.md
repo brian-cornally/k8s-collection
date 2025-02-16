@@ -1,4 +1,4 @@
-# aks-microservices
+# Terraform Setup
 
 - https://k8s.anjikeesari.com/azure/1-iac/
 - https://k8s.anjikeesari.com/azure/1-microservices-architecture-on-aks/
@@ -115,3 +115,8 @@ git add .
 git commit -am "initial tf setup"
 git push # --set-upstream origin develop
 ```
+
+# References
+
+- https://learn.microsoft.com/en-us/azure/developer/terraform/create-resource-group?source=recommendations&tabs=azure-cli
+- https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=azure-cli
