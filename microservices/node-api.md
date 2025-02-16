@@ -44,10 +44,10 @@ az acr repository list --name $ACR_NAME --output table
 az acr repository show-tags --name $ACR_NAME --repository sample/node-api --output table
 ```
 
-- git 
+- git
 
 ```bash
 git add .
-git commit -am "My fist commit - Create Web API project"
+git commit -am "${PWD:t} project - first commit"
 git push
 ```

@@ -17,14 +17,6 @@ alias br='dotnet build && dotnet run'
 br
 ```
 
-- commit
-
-```bash
-git add .
-git commit -am "My fist commit - Create Web API project"
-git push
-```
-
 - build
 
 ```bash
@@ -59,4 +51,12 @@ docker push ${ACR_NAME}.azurecr.io/sample/aspnet-app:${TIMESTAMP}.1
 ```bash
 az acr repository list --name ${ACR_NAME} --output table
 az acr repository show-tags --name ${ACR_NAME} --repository sample/aspnet-app --output table
+```
+
+- commit
+
+```bash
+git add .
+git commit -am "${PWD:t} project - first commit"
+git push
 ```

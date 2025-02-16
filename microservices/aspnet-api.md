@@ -43,14 +43,6 @@ open http://localhost:5182/weatherforecast # API endpoint URL
 open http://localhost:5182/api/aspnet-api/v1/weatherforecast # API endpoint URL
 ```
 
-- commit
-
-```bash
-git add .
-git commit -am "My fist commit - Create Web API project"
-git push
-```
-
 - build
 
 ```bash
@@ -86,8 +78,40 @@ az acr repository list --name ${ACR_NAME} --output table
 az acr repository show-tags --name ${ACR_NAME} --repository sample/aspnet-api --output table
 ```
 
--
+- commit
 
 ```bash
-az acr login --name acr1dev
+git add .
+git commit -am "My fist commit - Create Web API project"
+git push
+```
+
+- acr
+
+```bash
+az acr login --name ${ACR_NAME}
+az acr list --resource-group rg-acr-dev --query "[].{acrLoginServer:loginServer}" --output table
+```
+
+- tag push
+
+```bash
+docker tag sample/aspnet-api:${TIMESTAMP}.1 ${ACR_NAME}.azurecr.io/sample/aspnet-api:${TIMESTAMP}.1
+docker images
+docker push ${ACR_NAME}.azurecr.io/sample/aspnet-api:${TIMESTAMP}.1
+```
+
+- show
+
+```bash
+az acr repository list --name ${ACR_NAME} --output table
+az acr repository show-tags --name ${ACR_NAME} --repository sample/aspnet-api --output table
+```
+
+- commit
+
+```bash
+git add .
+git commit -am "${PWD:t} project - first commit"
+git push
 ```
