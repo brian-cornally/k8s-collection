@@ -3,6 +3,7 @@
     Configures Azure for secure Terraform access.
 .DESCRIPTION
     Configures Azure for secure Terraform access using Azure Key Vault.
+	script from https://k8s.anjikeesari.com/azure/6-tf-foundation-1/#create-terraform-management-using-powershell-script
     The following steps are automated:
     - Creates an Azure Service Principle for Terraform.
     - Creates a new Resource Group.
@@ -18,8 +19,9 @@
        - 'tf-access-key'
 .EXAMPLE
     Connect-AzAccount -UseDeviceAuthentication -AuthScope MicrosoftGraphEndpointResourceId -TenantId d5170891-80d3-48d7-b234-133c0715d5d9
-	.\scripts\tf-mgmt.ps1 -adminUserDisplayName (Get-AzADUser -SignedIn | % Id)
     Displays device login link, then configures secure Terraform access for logged in user
+	Get-AzKeyVault -InRemovedState | Remove-AzKeyVault -InRemovedState 	# if necessary, purge soft-deleted key-vault
+	.\tf-mgmt.ps1 -adminUserDisplayName (Get-AzADUser -SignedIn | % DisplayName)
 .NOTES
     Assumptions:
     - Azure PowerShell module is installed: https://docs.microsoft.com/en-us/powershell/azure/install-az-ps
@@ -30,7 +32,7 @@
 
 [CmdletBinding()]
 param (
-	$adminUserDisplayName = "xxx", # This is used to assign yourself access to KeyVault
+	$adminUserDisplayName = "pro", # This is used to assign yourself access to KeyVault
 	$servicePrincipalName = "sp-tfmgmt-dev",
 	$resourceGroupName = "rg-tf-dev",
 	$location = "WestEurope",
@@ -214,12 +216,12 @@ else {
 # Set KeyVault Access Policy
 Write-Host "`nSetting KeyVault Access Policy for Admin User: [$adminUserDisplayName]..."
 $adminADUser = Get-AzADUser -DisplayName $adminUserDisplayName
-Write-Host "adminADUser = ${adminADUser}" -ForegroundColor 'Green'
+Write-Host "adminADUser = ${$adminADUser.UserPrincipalName}" -ForegroundColor 'Green'
 try {
 	$azKeyVaultAccessPolicyParams = @{
 		VaultName                 = $vaultName
 		ResourceGroupName         = $resourceGroupName
-		UserPrincipalName         = $adminUserDisplayName
+		UserPrincipalName         = $adminADUser.UserPrincipalName
 		PermissionsToKeys         = @('Get', 'List')
 		PermissionsToSecrets      = @('Get', 'List', 'Set')
 		PermissionsToCertificates = @('Get', 'List')

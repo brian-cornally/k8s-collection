@@ -1,13 +1,12 @@
 # Terraform Setup
 
-- https://k8s.anjikeesari.com/azure/1-iac/
-- https://k8s.anjikeesari.com/azure/1-microservices-architecture-on-aks/
-- https://k8s.anjikeesari.com/azure/3-azure-account-subscription/
-- https://k8s.anjikeesari.com/azure/6-tf-foundation-1/#introduction
+creates
 
-# References
-
-- https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks-microservices/aks-microservices
+- ResourceGroup
+- KeyVault
+- StorageAccount
+- ServicePrincipal
+- Stores Credentials in KeyVault
 
 # PowerShell Procedure
 
@@ -38,10 +37,6 @@ az ad app create --display-name $CLIENT_NAME --sign-in-audience "AzureADMyOrg" -
 ```bash
 AZ_OBJECT_ID=$(az ad sp show --id $AZ_CLIENT_ID --query id --output tsv) && echo AZ_OBJECT_ID=$AZ_OBJECT_ID
 AZ_CLIENT_ID=$(az ad app list --display-name $CLIENT_NAME --query "[0].appId" -o tsv) && echo AZ_CLIENT_ID=$AZ_CLIENT_ID
-
-az ad app list --display-name $CLIENT_NAME
---query "[0].objectId" -o tsv
-
 az ad sp create --id $AZ_CLIENT_ID
 AZ_CLIENT_SECRET=$(az ad app credential reset --id $AZ_CLIENT_ID --append --query password --output tsv) && echo AZ_CLIENT_SECRET=$AZ_CLIENT_SECRET
 ```
@@ -118,5 +113,10 @@ git push # --set-upstream origin develop
 
 # References
 
+- https://k8s.anjikeesari.com/azure/1-iac/
+- https://k8s.anjikeesari.com/azure/1-microservices-architecture-on-aks/
+- https://k8s.anjikeesari.com/azure/3-azure-account-subscription/
+- https://k8s.anjikeesari.com/azure/6-tf-foundation-1/#introduction
+- https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks-microservices/aks-microservices
 - https://learn.microsoft.com/en-us/azure/developer/terraform/create-resource-group?source=recommendations&tabs=azure-cli
 - https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=azure-cli

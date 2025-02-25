@@ -1,0 +1,48 @@
+locals {
+  # account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  region_vars  = "xxx" # read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  # env_vars     = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+}
+
+remote_state {
+  backend = "azurerm"
+  config = {
+    resource_group_name  = "rg-tf-dev"
+    storage_account_name = "tfbco"
+    container_name       = "state"
+    key            = "${path_relative_to_include()}/terraform.tfstate"
+  }
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
+}
+
+generate "provider" {
+  path      = "providers.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
+provider "azurerm" {
+  features {}
+}
+EOF
+}
+
+generate "provider_version" {
+  path      = "versions.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.31.0"
+    }
+    # https://github.com/terraform-providers/terraform-provider-azuread/releases
+    azuread = {
+      version = ">= 2.26.0"
+    }
+  }
+}
+EOF
+}
