@@ -19,7 +19,7 @@ inputs = {
 
   acr_rg_name           = "acr"
   acr_name              = "bcacr1dev"
-  acr_sku               = "Premium" # "Basic"
+  acr_sku               = "Basic" # "Premium" #
   acr_admin_enabled     = true
   data_endpoint_enabled = false
 }
