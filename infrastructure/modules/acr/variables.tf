@@ -16,12 +16,6 @@ variable "rg_prefix" {
   description = "Prefix of the resource group name that's combined with name of the resource group."
 }
 
-variable "rg_basename" {
-  description = "Name of the resource group name for virtual network"
-  type        = string
-  default     = "rg-vnet1-dev"
-}
-
 variable "default_tags" {
   type = map(any)
   default = {
@@ -37,15 +31,33 @@ variable "log_analytics_workspace_id" {
   # default     = "efcaf726-00eb-4ce9-85b8-f57ddbdc8623"
 }
 
+variable "vnet_rg" {
+  type        = string
+  description = "vnet resource group name"
+}
+
+variable "vnet_id" {
+  type        = string
+  description = "vnet id"
+}
+
+variable "vnet_name" {
+  type        = string
+  description = "vnet name"
+}
+
+variable "subnet_jumpbox_id" {
+  description = "jumpbox subnet id"
+  type        = string
+}
+
+// ========================== Azure Container Registry (ACR) ==========================
+
 variable "acr_prefix" {
   type        = string
   default     = "acr"
   description = "Prefix of the Azure Container Registry (ACR) name that's combined with name of the ACR"
 }
-
-///
-
-// ========================== Azure Container Registry (ACR) ==========================
 
 variable "acr_name" {
   description = "(Required) Specifies the name of the Container Registry. Changing this forces a new resource to be created."
@@ -95,13 +107,33 @@ variable "acr_tags" {
   type        = map(any)
   default     = {}
 }
+
 variable "data_endpoint_enabled" {
   description = "(Optional) Whether to enable dedicated data endpoints for this Container Registry? Defaults to false. This is only supported on resources with the Premium SKU."
   default     = true
   type        = bool
 }
+
 variable "pe_acr_subresource_names" {
   description = "(Optional) Specifies a subresource names which the Private Endpoint is able to connect to ACR."
   type        = list(string)
   default     = ["registry"]
+}
+
+variable "private_endpoint_prefix" {
+  description = "(Optional) private endpoint prefix"
+  type        = string
+  default     = "pe"
+}
+
+variable "pe_sc_request_message" {
+  description = "(Optional) private endpoint service connection - request message"
+  type        = string
+  default     = "pe_sc"
+}
+
+variable "pe_sc_is_manual_connection" {
+  description = "(Optional) private endpoint service connection - is_manual_connection"
+  type        = bool
+  default     = false
 }

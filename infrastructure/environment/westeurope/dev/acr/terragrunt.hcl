@@ -9,18 +9,25 @@ include "root" {
 }
 
 inputs = {
-  environment = include.root.locals.environment # "dev"
-  location    = include.root.locals.az_region   # e.g. "westeurope"
-  log_analytics_workspace_id           = dependency.log-analytics.outputs.log_analytics_workspace_id
-  rg_basename                          = "acr"
+  environment                = include.root.locals.environment # "dev"
+  location                   = include.root.locals.az_region   # e.g. "westeurope"
+  log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
+  vnet_rg                    = dependency.vnet.outputs.vnet_rg
+  vnet_id                    = dependency.vnet.outputs.vnet_id
+  vnet_name                    = dependency.vnet.outputs.vnet_name
+  subnet_jumpbox_id = dependency.vnet.outputs.subnet_jumpbox_id
 
-  acr_rg_name                         = "acr"
-  acr_name                            = "bcacr1dev"
-  acr_sku                             = "Basic"
-  acr_admin_enabled                   = true
-  data_endpoint_enabled               = false
+  acr_rg_name           = "acr"
+  acr_name              = "bcacr1dev"
+  acr_sku               = "Premium" # "Basic"
+  acr_admin_enabled     = true
+  data_endpoint_enabled = false
 }
 
 dependency "log-analytics" {
   config_path = "${get_terragrunt_dir()}/../log-analytics"
+}
+
+dependency "vnet" {
+  config_path = "${get_terragrunt_dir()}/../vnet"
 }
