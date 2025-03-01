@@ -9,11 +9,11 @@ include "root" {
 }
 
 inputs = {
-  environment = include.root.locals.environment # "dev"
-  location    = include.root.locals.az_region   # e.g. "westeurope"
-  log_analytics_workspace_id           = dependency.log-analytics.outputs.log_analytics_workspace_id
-  rg_basename                          = "vnet1"
-  
+  environment                = include.root.locals.environment # "dev"
+  location                   = include.root.locals.az_region   # e.g. "westeurope"
+  log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
+  rg_basename                = "vnet1"
+
   hub_vnet_name                        = "hub"
   hub_vnet_address_space               = ["10.63.0.0/20"]
   hub_gateway_subnet_name              = "gateway"

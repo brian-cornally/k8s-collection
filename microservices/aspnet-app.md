@@ -2,8 +2,6 @@
 
 - http://k8s.anjikeesari.com/microservices/3.aspnet-app/
 
--
-
 ```bash
 dotnet new --list
 dotnet new mvc -o aspnet-app

@@ -9,19 +9,21 @@ include "root" {
 }
 
 inputs = {
-  environment                = include.root.locals.environment # "dev"
-  location                   = include.root.locals.az_region   # e.g. "westeurope"
-  log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
-  vnet_rg                    = dependency.vnet.outputs.vnet_rg
-  vnet_id                    = dependency.vnet.outputs.vnet_id
-  vnet_name                    = dependency.vnet.outputs.vnet_name
-  subnet_jumpbox_id = dependency.vnet.outputs.subnet_jumpbox_id
-
+  # general
+  environment = include.root.locals.environment # "dev"
+  location    = include.root.locals.az_region   # e.g. "westeurope"
+  # direct
   acr_rg_name           = "acr"
   acr_name              = "bcacr1dev"
   acr_sku               = "Basic" # "Premium" #
   acr_admin_enabled     = true
   data_endpoint_enabled = false
+  # dependencies
+  log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
+  vnet_rg                    = dependency.vnet.outputs.vnet_rg
+  vnet_id                    = dependency.vnet.outputs.vnet_id
+  vnet_name                  = dependency.vnet.outputs.vnet_name
+  subnet_jumpbox_id          = dependency.vnet.outputs.subnet_jumpbox_id
 }
 
 dependency "log-analytics" {

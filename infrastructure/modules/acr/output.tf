@@ -10,7 +10,7 @@ output "acr_id" {
   value       = azurerm_container_registry.acr.id
 }
 
-output "acr_resource_group_name" {
+output "acr_rg_name" {
   description = "Specifies the name of the resource group."
   value       = azurerm_container_registry.acr.resource_group_name
 }
@@ -28,4 +28,9 @@ output "acr_login_server_url" {
 output "acr_admin_username" {
   description = "Specifies the admin username of the container registry."
   value       = azurerm_container_registry.acr.admin_username
+}
+
+output "acr_sku" {
+  description = "The SKU name of the container registry."
+  value       = azurerm_container_registry.acr.sku
 }
