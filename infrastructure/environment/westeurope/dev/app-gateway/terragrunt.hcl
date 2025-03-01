@@ -9,10 +9,11 @@ include "root" {
 }
 
 inputs = {
+  # general
   environment = include.root.locals.environment # "dev"
   location    = include.root.locals.az_region   # e.g. "westeurope"
 
-  # application gateway
+  # direct
   appgtw_name           = "appgtw1"
   appgtw_sku_size       = "WAF_v2"
   appgtw_sku_tier       = "WAF_v2"

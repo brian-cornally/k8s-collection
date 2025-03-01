@@ -12,12 +12,14 @@ inputs = {
   # general
   environment = include.root.locals.environment # "dev"
   location    = include.root.locals.az_region   # e.g. "westeurope"
+
   # direct
   acr_rg_name           = "acr"
   acr_name              = "bcacr1dev"
   acr_sku               = "Basic" # "Premium" #
   acr_admin_enabled     = true
   data_endpoint_enabled = false
+
   # dependencies
   log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
   vnet_rg                    = dependency.vnet.outputs.vnet_rg

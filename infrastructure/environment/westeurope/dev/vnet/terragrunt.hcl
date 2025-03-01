@@ -9,11 +9,12 @@ include "root" {
 }
 
 inputs = {
+  # general
   environment                = include.root.locals.environment # "dev"
   location                   = include.root.locals.az_region   # e.g. "westeurope"
-  log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
   rg_basename                = "vnet1"
 
+  # direct
   hub_vnet_name                        = "hub"
   hub_vnet_address_space               = ["10.63.0.0/20"]
   hub_gateway_subnet_name              = "gateway"
@@ -32,6 +33,9 @@ inputs = {
   psql_address_prefixes                = "10.64.2.0/26"
   jumpbox_subnet_name                  = "jumpbox"
   jumpbox_subnet_address_prefix        = ["10.64.3.0/28"]
+
+  # dependencies
+  log_analytics_workspace_id = dependency.log-analytics.outputs.log_analytics_workspace_id
 }
 
 dependency "log-analytics" {

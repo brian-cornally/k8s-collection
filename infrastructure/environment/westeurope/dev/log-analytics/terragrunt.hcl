@@ -9,8 +9,11 @@ include "root" {
 }
 
 inputs = {
+  # general
   environment    = include.root.locals.environment # "dev"
   location       = include.root.locals.az_region   # "westeurope"
+
+  # direct
   rg_basename    = "workspace"
   workspace_name = "workspace1"
 }
