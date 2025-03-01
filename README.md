@@ -1,3 +1,3 @@
 # Azure Kubernetes Collection
 
-- https://k8s.anjikeesari.com/azure
+- based on: https://k8s.anjikeesari.com/azure
