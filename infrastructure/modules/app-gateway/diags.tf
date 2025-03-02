@@ -2,7 +2,7 @@
 resource "azurerm_monitor_diagnostic_setting" "diag_apptw" {
   name                       = azurerm_application_gateway.appgtw.name
   target_resource_id         = azurerm_application_gateway.appgtw.id
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
   # dynamic "log" {
   #   for_each = local.diag_appgtw_logs
   #   content {

@@ -1,4 +1,4 @@
-// ========================== virtual netowrking ==========================
+// ========================== virtual networking ==========================
 output "vnet_rg" {
   description = "Specifies the name of the virtual network"
   value       = azurerm_virtual_network.vnet.resource_group_name

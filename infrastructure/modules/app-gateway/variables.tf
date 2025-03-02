@@ -44,6 +44,11 @@ variable "subnet_appgtw_id" {
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "log_analytics_workspace_id"
+  type        = string
+}
+
 ###############
 # app gateway
 ###############
